@@ -1,17 +1,27 @@
-import { act } from 'react-dom/test-utils'
-import {createStore} from 'redux'
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-const reduceFn=(state={counter:0},action:any)=>{
-
-    switch(action.type){
-        case 'INC': return {...state,counter:state.counter+1}
-        case 'DEC': return {...state,counter:state.counter-1}
-        case 'INC BY Value':return {...state,counter:state.counter+action.payload}
-        case 'DEC BY Value': return  {...state,counter:state.counter-action.payload}
+const counterSlice =createSlice({
+    name:"counter",
+    initialState:{counter:0},
+    reducers:{
+        increment(state){
+            state.counter+=1
+        },
+        decrement(state){
+            state.counter-=1
+        },
+        incByValue(state,action){
+            state.counter+=action.payload
+        },
+        decByValue(state,action){
+            state.counter-=action.payload
+        }
     }
-    return state
 
-}
-const store=createStore(reduceFn)
+})
 
-export default store
+export const actions = counterSlice.actions
+
+export const store = configureStore({
+    reducer:counterSlice.reducer
+})

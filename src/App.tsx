@@ -1,22 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { actions } from './store/index';
 function App() {
   const counter=useSelector((state:any)=>state.counter)
   const dispatch =useDispatch();
   const increment=()=>{
-    dispatch({type:'INC'})
+    dispatch(actions.increment())
   }
   const decrement=()=>{
-    dispatch({type:'DEC'})
+    dispatch(actions.decrement())
+
   }
 
   const incByVal=(value: any)=>{
-    dispatch({type:'INC BY Value',payload:value})
+    dispatch(actions.incByValue(10))
   }
 
   const decByVal=(value: any)=>{
-    dispatch({type:'DEC BY Value',payload:value})
+    dispatch(actions.decByValue(4))
   }
   return (
     <div className="App">
